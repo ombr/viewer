@@ -6,4 +6,4 @@ services:
   - docker
 
 script:
-  - docker run -v $(pwd)/:/app ombr/docker-base bash -c "cd /app; yarn install; yarn test; yarn build;"
+  - docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn install; yarn test; yarn build;"
