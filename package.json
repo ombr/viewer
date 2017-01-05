@@ -2,7 +2,7 @@
   "name": "",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/module.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "coffeelint src",
     "build": "webpack",
