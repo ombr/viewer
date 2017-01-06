@@ -2,14 +2,14 @@ sudo: required
 language: ruby
 services:
 - docker
-after_sucess:
-- docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn deploy;"
 branches:
   except:
   - gh-pages
 script:
 - docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn install;
   yarn test; yarn build;"
+after_sucess:
+- docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn deploy;"
 before_install:
 - openssl aes-256-cbc -K $encrypted_401a4d750c66_key -iv $encrypted_401a4d750c66_iv
   -in deploy_key.enc -out deploy_key -d
