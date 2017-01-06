@@ -5,5 +5,8 @@ language: ruby
 services:
   - docker
 
+branches:
+  except:
+    - gh-pages
 script:
   - docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn install; yarn test; yarn build;"

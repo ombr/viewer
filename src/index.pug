@@ -6,7 +6,9 @@ html(lang="en")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title Index
   body
-    .container.text-center
-      .row
-        .col-md-6.col-md-offset-3
-          h1 Hello World
+    .viewer
+      .viewer-background
+      .viewer-content
+        .viewer-container(style="background: rgba(255, 0, 0, 0.4)") -1
+        .viewer-container(style="background: rgba(0, 255, 0, 0.4);") 0
+        .viewer-container(style="background: rgba(0, 0, 255, 0.4)") 1

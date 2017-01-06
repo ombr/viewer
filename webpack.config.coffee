@@ -31,7 +31,7 @@ module.exports =
       {
         template: './src/index.pug',
         hash: true,
-        chunks: ['index.min'],
+        chunks: ['index'],
         filename: 'dist/index.html'
       }
     ),
