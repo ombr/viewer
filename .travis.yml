@@ -6,10 +6,9 @@ branches:
   except:
   - gh-pages
 script:
-- docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn install;
+- "env > .env"
+- docker run --env-file .env -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn install;
   yarn test; yarn build;yarn deploy;"
-after_sucess:
-- docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn deploy;"
 before_install:
 - openssl aes-256-cbc -K $encrypted_401a4d750c66_key -iv $encrypted_401a4d750c66_iv
   -in deploy_key.pem.enc -out deploy_key.pem -d
