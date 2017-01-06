@@ -6,7 +6,8 @@
   "scripts": {
     "test": "coffeelint src",
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "deploy": "./deploy.sh"
   },
   "repository": {
     "type": "git",

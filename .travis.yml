@@ -4,7 +4,8 @@ language: ruby
 
 services:
   - docker
-
+after_sucess:
+  - docker run -v $(pwd)/:/app ombr/docker-base:yarn bash -c "cd /app; yarn deploy;"
 branches:
   except:
     - gh-pages
