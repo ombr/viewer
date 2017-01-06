@@ -30,6 +30,7 @@ if [ "$BRANCH" = "master" ]; then
   cp -r ./dist/* $REPO_DIR
 fi
 
+echo $SSH_REPO
 cd $REPO_DIR
 git add -A .
 git commit --allow-empty -m "Built for $BRANCH ($REV)"
