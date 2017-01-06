@@ -32,7 +32,7 @@ module.exports =
         template: './src/index.pug',
         inject: false,
         cache: false,
-        chunks: ['index'],
+        chunks: ['index.min'],
         filename: 'dist/index.html'
       }
     ),
