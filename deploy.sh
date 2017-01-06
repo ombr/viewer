@@ -15,6 +15,7 @@ if [[ $TRAVIS ]]; then
 fi
 
 REPO=$(git config remote.origin.url)
+SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 REPO_DIR=$(mktemp -d /tmp/deploy.XXXXXX)
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 REV=$(git rev-parse HEAD)
@@ -32,4 +33,4 @@ fi
 cd $REPO_DIR
 git add -A .
 git commit --allow-empty -m "Built for $BRANCH ($REV)"
-git push $REPO gh-pages
+git push $SSH_REPO gh-pages
