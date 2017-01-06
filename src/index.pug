@@ -5,6 +5,8 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title Index
+    each cssFile in htmlWebpackPlugin.files.css
+      style !{compilation.assets[cssFile.substr(htmlWebpackPlugin.files.publicPath.length)].source()}
   body
     h1 Hello World !
     .viewer
@@ -13,3 +15,5 @@ html(lang="en")
         .viewer-container(style="background: rgba(255, 0, 0, 0.4)") -1
         .viewer-container(style="background: rgba(0, 255, 0, 0.4);") 0
         .viewer-container(style="background: rgba(0, 0, 255, 0.4)") 1
+    each jsFile in htmlWebpackPlugin.files.js
+      script(type="text/javascript") !{compilation.assets[jsFile.substr(htmlWebpackPlugin.files.publicPath.length)].source()}

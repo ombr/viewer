@@ -30,7 +30,8 @@ module.exports =
     new HtmlWebpackPlugin(
       {
         template: './src/index.pug',
-        hash: true,
+        inject: false,
+        cache: false,
         chunks: ['index'],
         filename: 'dist/index.html'
       }
