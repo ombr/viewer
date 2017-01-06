@@ -7,8 +7,8 @@ if [ "$TRAVIS" ]; then
   chmod 600 $SSH_KEY
   eval `ssh-agent -s`
   ssh-add $SSH_KEY
-  git config --global user.name "$GIT_NAME"
-  git config --global user.email "$GIT_EMAIL"
+  git config --global user.name "$(git --no-pager show -s --format='%an')"
+  git config --global user.email "$(git --no-pager show -s --format='%ae')"
 fi
 
 REPO=$(git config remote.origin.url)
