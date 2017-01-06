@@ -22,12 +22,13 @@ class Viewer
 
     items = @$('.viewer-container')
     @$items = [$(items[0]), $(items[1]), $(items[2])]
-    console.log @$items
+    # console.log @$items
     @index = 0
     @$items[0].css('left', '-100%')
     @$items[2].css('left', '100%')
-    requestAnimationFrame =>
+    @loop_callback = =>
       @loop()
+    requestAnimationFrame @loop_callback
   destroy: ->
     @$viewer.off 'touchstart mousedown', @on_down
     @$viewer.off 'touchmove mousemove', @on_move
@@ -47,8 +48,7 @@ class Viewer
           'transform',
           "translate(#{translatex}%, #{translation[1]}px)"
         )
-    requestAnimationFrame =>
-      @loop()
+    requestAnimationFrame @loop_callback
   distance: (p)->
     Math.sqrt(p[0]*p[0]+p[1]*p[1])
   translation: ->
@@ -69,7 +69,7 @@ class Viewer
       @$viewer
   set_index: (index)->
     diff = index - @index
-    console.log diff
+    # console.log diff
     changes = {}
     switch diff
       when 1
@@ -139,14 +139,13 @@ $ ->
   v = new Viewer(
     elem: '.viewer'
     callback: (changes, positions)->
-      console.log changes
       for index, element of changes
         $(element).html(index)
     destroyed: (e)->
       $(e).remove()
   )
-  $('body').on 'mousemove', ->
-    console.log 'MOUSE MOVE BODY !'
+  # $('body').on 'mousemove', ->
+  #   console.log 'MOUSE MOVE BODY !'
   v.set_index(30)
   # v.$items = [0, 1, 2]
   # v._rotate_items(1)
