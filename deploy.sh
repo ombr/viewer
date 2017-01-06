@@ -2,6 +2,9 @@
 set -e
 cd "$(dirname $0)";
 
+rm -rf dist
+yarn build
+
 if [[ $TRAVIS ]]; then
   SSH_KEY=deploy_key.pem
   chmod 600 $SSH_KEY
@@ -21,9 +24,9 @@ git clone --branch gh-pages ${REPO} ${REPO_DIR}
 
 rm -rf $TARGET_DIR
 mkdir -p $TARGET_DIR
-cp -r ./dist $TARGET_DIR
+cp -r ./dist/* $TARGET_DIR
 if [ "$BRANCH" = "master" ]; then
-  cp -r ./dist $REPO_DIR
+  cp -r ./dist/* $REPO_DIR
 fi
 
 cd $REPO_DIR
