@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname $0)";
 
-if [ "$TRAVIS" ]; then
+if [ "$TRAVIS" == 'true' ]; then
   SSH_KEY=deploy_key.pem
   chmod 600 $SSH_KEY
   eval `ssh-agent -s`
