@@ -1,0 +1,17 @@
+{
+  "name": "Index",
+  "description": "Index tempalte",
+  "website": "Index",
+  "success_url": "/",
+  "addons": [],
+  "buildpacks": [],
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    },
+  },
+  "image": "heroku/nodejs"
+}
