@@ -11,18 +11,21 @@ module.exports =
     libraryTarget: "umd",
     library: '[name]'
   module:
-    loaders: [
+    rules: [
       {
         test: /\.coffee$/,
-        loaders: ["babel?presets[]=es2015", "coffee-loader" ]
+        loaders: [ "coffee-loader" ]
       },
       {
         test: /\.sass$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css!sass")
+        use: ExtractTextPlugin.extract({
+          use: ["css-loader", 'sass-loader']
+          fallback: 'style-loader'
+        })
       },
       {
         test: /\.pug$/,
-        loader: "pug"
+        use: ['pug-loader']
       }
     ]
   plugins: [
@@ -32,9 +35,9 @@ module.exports =
         template: './src/index.pug',
         inject: false,
         cache: false,
-        chunks: ['index.min'],
+        chunks: ['index'],
         filename: 'dist/index.html'
       }
     ),
-    new ExtractTextPlugin("dist/[name].css")
+    new ExtractTextPlugin("dist/[name].css"),
   ]
