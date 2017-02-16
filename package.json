@@ -1,7 +1,7 @@
 {
-  "name": "",
-  "version": "0.0.1",
-  "description": "",
+  "name": "salesforcelogin",
+  "version": "0.0.2",
+  "description": "In order to login to salesforce...",
   "main": "dist/index.js",
   "scripts": {
     "test": "coffeelint src && sass-lint src && pug-lint src",
@@ -42,9 +42,9 @@
     "style-loader": "0.13.1",
     "uglify-js": "2.6.2",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^2.3.0",
+    "http-server": "^0.9.0"
   },
   "dependencies": {
-    "http-server": "^0.9.0"
   }
 }
