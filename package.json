@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "coffeelint src",
+    "test": "coffeelint src && sass-lint src && pug-lint src",
     "build": "webpack",
     "start": "webpack-dev-server",
     "deploy": "./deploy.sh"
@@ -36,8 +36,10 @@
     "node-sass": "3.7.0",
     "normalize-css": "^2.3.1",
     "pug": "^2.0.0-beta11",
+    "pug-lint": "^2.4.0",
     "pug-loader": "^2.3.0",
     "reset-css": "^2.2.0",
+    "sass-lint": "^1.10.2",
     "sass-loader": "^6.0.0",
     "style-loader": "0.13.1",
     "uglify-js": "2.6.2",
