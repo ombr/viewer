@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "coffeelint src && sass-lint src && pug-lint src",
-    "build": "webpack -p --config ./webpack.config.js --progress",
+    "build": "./build.sh",
     "start": "webpack-dev-server",
     "deploy": "./deploy.sh",
-    "postinstall": "webpack -p --config ./webpack.config.js --progress --color"
+    "postinstall": "./build.sh"
   },
   "repository": {
     "type": "git",
