@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "coffeelint src && sass-lint src && pug-lint src",
-    "build": "webpack --config ./webpack.config.js",
+    "build": "webpack -p --config ./webpack.config.js --progress",
     "start": "webpack-dev-server",
     "deploy": "./deploy.sh",
     "postinstall": "npm build"
