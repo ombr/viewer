@@ -23,12 +23,13 @@ TARGET_DIR="$REPO_DIR/branches/$BRANCH/"
 
 git clone --branch gh-pages ${REPO} ${REPO_DIR}
 
+if [ ! "$BRANCH" = "master" ]; then
+  exit 0
+fi
+
 rm -rf $TARGET_DIR
 mkdir -p $TARGET_DIR
 cp -r ./dist/* $TARGET_DIR
-if [ "$BRANCH" = "master" ]; then
-  cp -r ./dist/* $REPO_DIR
-fi
 
 echo $SSH_REPO
 cd $REPO_DIR
