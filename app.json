@@ -1,6 +1,6 @@
 {
   "name": "Index",
-  "description": "Index tempalte",
+  "description": "Index template",
   "website": "Index",
   "success_url": "/",
   "addons": [],
