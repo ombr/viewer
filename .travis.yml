@@ -1,4 +1,4 @@
-language: javascript
+language: node_js
 script:
   - yarn install && yarn test && yarn build
 deploy:
