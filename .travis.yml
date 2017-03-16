@@ -1,4 +1,3 @@
-sudo: required
 language: javascript
 script:
   - yarn install && yarn test && yarn build
