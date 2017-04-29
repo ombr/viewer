@@ -11,7 +11,13 @@ html(lang="en")
     .viewer
       .viewer-background
       .viewer-content
-        .viewer-container(style="background: rgba(255, 0, 0, 0.4)") -1
-        .viewer-container(style="background: rgba(0, 255, 0, 0.4);") 0
-        .viewer-container(style="background: rgba(0, 0, 255, 0.4)") 1
+        .viewer-container(style="background: rgba(255, 0, 0, 0.4)")
+          p -1
+          img(src="background.jpg")
+        .viewer-container(style="background: rgba(0, 255, 0, 0.4);")
+          p 0
+          img(src="background.jpg")
+        .viewer-container(style="background: rgba(0, 0, 255, 0.4)")
+          p 1
+          img(src="background.jpg")
     script(type="text/javascript") !{compilation.assets['dist/index.min.js'].source()}
