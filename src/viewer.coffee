@@ -1,4 +1,5 @@
-`import Listener from './listener.coffee'`
+import Listener from './listener.coffee'
+import Geomtery from './geometry.coffee'
 
 class Viewer
   constructor: (@_config)->
@@ -43,11 +44,11 @@ class Viewer
   loop: (e)->
     return if @destroyed
     if @drag
-      translation = @compute_translation(@touches, @last_touches)
-      @scale += @compute_scale(@touches, @last_touches)
+      translation = Geomtery.translation(@touches, @last_touches)
+      @scale += Geomtery.scale(@touches, @last_touches)
       @translation = [
-        @translation[0] + (translation[0]/@scale),
-        @translation[1] + (translation[1]/@scale)
+        @translation[0] - (translation[0]/@scale),
+        @translation[1] - (translation[1]/@scale)
       ]
 
       center = @barycentre(@last_touches)
@@ -93,7 +94,7 @@ class Viewer
     @translation = [0, 0]
     @element.classList.add('viewer-annimate')
     diff = index - @index
-    console.log 'set index', index, diff
+    # console.log 'set index', index, diff
     changes = []
     if diff != 0
       switch diff
@@ -143,6 +144,7 @@ class Viewer
   up: (@touches)->
     return unless @drag
     console.log 'UP !', @translation
+    @loop()
     # debugger
     @drag = false
     if @scale < 0.2 # Destroy via scale
@@ -161,25 +163,5 @@ class Viewer
       console.log 'ICIC ?'
 
   move: (@touches)->
-  compute_scale: (a,b)->
-    if a.length > 1 and b.length > 1
-      d1 = @distance(a[0], a[1])
-      d2 = @distance(b[0], b[1])
-      2.0 * (d1-d2) / (d1+d2)
-    else
-      0.0
-  # distance: (p)->
-  #   Math.sqrt(p[0]*p[0]+p[1]*p[1])
-  distance: (a,b)->
-    # console.log 'Distance !'
-    # console.log "distance #{a} #{b}"
-    x = a[0] - b[0]
-    y = a[1] - b[1]
-    Math.sqrt(x*x + y*y)
-  compute_translation: (a,b)->
-    if a.length > 0 and b.length > 0
-      [a[0][0] - b[0][0], a[0][1] - b[0][1]]
-    else
-      [0, 0]
 
 export default Viewer

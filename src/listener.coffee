@@ -44,7 +44,7 @@ class Listener
       touches.push([e.pageX, e.pageY])
     for touch, i in touches
       touches[i] = [touch[0] / @sizes[0] * 100.0, touch[1] / @sizes[1] * 100.0]
-    touches.push([20, 20]) if e.shiftKey
+    touches.push([45, 45]) if e.shiftKey
     touches
     @_touch_cache = touches
     @_touch_cache
