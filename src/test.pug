@@ -1,0 +1,12 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    //style !{compilation.assets['dist/test.css'].source()}
+    link(rel="stylesheet" media="all" href="../node_modules/mocha/mocha.css")
+    title Tests
+  body
+    #mocha
+    script(type="text/javascript") !{compilation.assets['dist/test.js'].source()}

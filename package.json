@@ -4,7 +4,7 @@
   "description": "Index",
   "main": "dist/index.js",
   "scripts": {
-    "test": "coffeelint src && sass-lint src && pug-lint src",
+    "test": "coffeelint src && sass-lint src && pug-lint src && mocha test",
     "build": "./build.sh",
     "start": "webpack-dev-server",
     "heroku-postbuild": "./build.sh"
@@ -24,14 +24,18 @@
     "bootstrap-sass": "3.3.6",
     "bourbon": "^4.2.7",
     "coffee-loader": "^0.7.2",
-    "coffee-script": "^1.12.3",
+    "coffee-script": "1.12.5",
     "coffeelint": "1.15.7",
     "css-loader": "^0.26.1",
-    "extract-text-webpack-plugin": "beta",
+    "expect.js": "0.3.1",
+    "extract-text-webpack-plugin": "2.1.0",
     "git-directory-deploy": "^1.5.1",
     "html-webpack-plugin": "2.20.0",
     "http-server": "^0.9.0",
     "jquery": "^3.1.1",
+    "jsdom": "9.12.0",
+    "jsdom-global": "2.1.1",
+    "mocha": "3.3.0",
     "node-sass": "^4.5.0",
     "normalize-css": "^2.3.1",
     "pug": "^2.0.0-beta11",
@@ -44,6 +48,5 @@
     "uglify-js": "2.6.2",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
-  },
-  "dependencies": {}
+  }
 }

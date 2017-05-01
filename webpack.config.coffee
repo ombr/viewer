@@ -4,7 +4,10 @@ HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports =
   entry:
     "index": "./src/index.coffee",
+    "test": "./src/test.coffee",
     "index.min": "./src/index.coffee"
+    "viewer": "./src/index.coffee"
+    "viewer.min": "./src/index.coffee"
   output:
     path: __dirname,
     filename: "dist/[name].js",
@@ -39,5 +42,17 @@ module.exports =
         filename: 'dist/index.html'
       }
     ),
+    new HtmlWebpackPlugin(
+      {
+        template: './src/test.pug',
+        inject: false,
+        cache: false,
+        chunks: ['test-html'],
+        filename: 'dist/test.html'
+      }
+    ),
     new ExtractTextPlugin("dist/[name].css"),
   ]
+  node:
+    fs: "empty"
+    child_process: "empty"
