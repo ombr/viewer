@@ -5,24 +5,33 @@ import $ from 'jquery'
 
 export default ->
   describe 'Viewer', ->
-    viewer_id = Helper.$viewer(this)
     describe 'Simple swipe', ->
-      it 'change the first element with index 3', (done)->
-        @timeout(20000)
-        first_item = $('.viewer-container', $(viewer_id)[0])[0]
-        console.log first_item
+
+      it 'does not change for a small move', ->
         viewer = new Viewer(
-          elem: document.getElementById(viewer_id),
-          callback: (positions, changes)->
-            console.log first_item
-            # expect(Object.keys(changes)[0]).to.equal(first_item)
-            # expect(first_item).to eq(changes
-            console.log changes
-            console.log positions
-            setTimeout( ->
-              done()
-            15000)
+          elem: Helper.viewer_dom(after)
+          callback: (changes, positions)->
+            throw 'This should not happen !'
+        )
+        viewer.down([[50, 50]])
+        viewer.move([[49, 50]])
+        viewer.loop()
+        viewer.up([[49, 50]])
+
+      it 'change the first element with index 3', (done)->
+        viewer_dom = Helper.viewer_dom(after)
+        first_item = $('.viewer-container', viewer_dom)[0]
+        console.log viewer_dom, first_item
+        viewer = new Viewer(
+          elem: viewer_dom
+          callback: (changes, positions)->
+            expect(changes.length).to.equal(1)
+            expect(positions.length).to.equal(3)
+            expect(changes[0].elem).to.equal(first_item)
+            console.log first_item, changes
+            done()
         )
         viewer.down([[50, 50]])
         viewer.move([[20, 50]])
+        viewer.loop()
         viewer.up([[20, 50]])

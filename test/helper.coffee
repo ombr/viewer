@@ -1,22 +1,20 @@
 import $ from 'jquery'
 helper = {
-  $viewer: (context)->
-    $viewer = null
-    id = "viewer-#{Math.round(Math.random()*100000)}"
-    context.beforeEach ->
-      $viewer = $(
-        '<div id="' + id + '" class=".viewer"> \
-          <div class="viewer-background"/> \
-          <div class="viewer-content"> \
-            <div class="viewer-container"/> \
-            <div class="viewer-container"/> \
-            <div class="viewer-container"/> \
-          </div> \
-        </div>'
-      )
-      $('body').append($viewer)
-    context.afterEach ->
+  viewer_dom: (cleanup)->
+    $viewer = $(
+      '<div class=".viewer"> \
+        <div class="viewer-background"/> \
+        <div class="viewer-content"> \
+          <div class="viewer-container"/> \
+          <div class="viewer-container"/> \
+          <div class="viewer-container"/> \
+        </div> \
+      </div>'
+    )
+    $('body').append($viewer)
+    cleanup ->
+      console.log 'CleanUp?'
       $viewer.remove()
-    id
+    $viewer[0]
 }
 export default helper

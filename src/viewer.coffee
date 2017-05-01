@@ -43,16 +43,12 @@ class Viewer
   loop: (e)->
     return if @destroyed
     if @drag
-      # console.log @touches, @last_touches
       translation = @compute_translation(@touches, @last_touches)
-      # console.log 'translation', translation
       @scale += @compute_scale(@touches, @last_touches)
       @translation = [
         @translation[0] + (translation[0]/@scale),
         @translation[1] + (translation[1]/@scale)
       ]
-      # console.log @translation
-      # $('h1').html(@scale)
 
       center = @barycentre(@last_touches)
       # if @scale != 1
@@ -62,10 +58,7 @@ class Viewer
       # )
       # @$items[1].css('transform', "scale(#{@scale})")
 
-      # jconsole.log @translation
       translatex = -100.0*@index + @translation[0]
-      # console.log translatex
-      # console.log @scale, translatex, @translation
       @viewer_content.style.transformOrigin =
         "50% 50%"
       @viewer_content.style.transform =
@@ -100,19 +93,30 @@ class Viewer
     @translation = [0, 0]
     @element.classList.add('viewer-annimate')
     diff = index - @index
-    changes = {}
+    console.log 'set index', index, diff
+    changes = []
     if diff != 0
       switch diff
         when 1
-          changes[@index+2] = @items[0]
+          changes.push
+            elem: @items[0]
+            index: @index + 2
         when -1
-          changes[@index-2] = @items[2]
+          changes.push
+            elem: @items[2]
+            index: @index - 2
         else
-          changes[index-1] = @items[0]
-          changes[index] = @items[1]
-          changes[index+1] = @items[2]
-    for i, element of changes
-      element.style.left = "#{i*100}%"
+          changes.push
+            elem: @items[0]
+            index: @index - 1
+          changes.push
+            elem: @items[1]
+            index: @index
+          changes.push
+            elem: @items[2]
+            index: @index + 1
+    for i, change of changes
+      change.elem.style.left = "#{change.index*100}%"
     @index = index
     @_rotate_items(diff)
     positions = []
