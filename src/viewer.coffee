@@ -1,5 +1,6 @@
 import Listener from './listener.coffee'
 import Geomtery from './geometry.coffee'
+import css from './viewer.sass'
 
 class Viewer
   constructor: (@_config)->
@@ -35,12 +36,6 @@ class Viewer
     @destroyed = true
     @listener.destroy()
     @element.remove()
-  barycentre: (touches)->
-    if touches.length == 2
-      [a, b] = touches
-      [a[0] + (a[0]-b[0])/2.0, a[1] + (a[1]-b[1])/2.0]
-    else
-      [touches[0][0], touches[0][1]]
   tick: (e)->
     return if @destroyed
     if @drag
@@ -50,27 +45,9 @@ class Viewer
         @translation[0] - (translation[0]/@scale),
         @translation[1] - (translation[1]/@scale)
       ]
-
-      center = @barycentre(@last_touches)
-      # if @scale != 1
-      # @$items[1].css(
-      #   'transform-origin',
-      #   @barycentre(@position[0], @position[1]).join('px ') + 'px'
-      # )
-      # @$items[1].css('transform', "scale(#{@scale})")
-
       translatex = -100.0*@index + @translation[0]
-      @viewer_content.style.transformOrigin =
-        "50% 50%"
       @viewer_content.style.transform =
         "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
-      # console.log "#{translatex}% 50%"
-      # console.log 'center', center
-      # @$viewer_content
-      #   .css(
-      #     'transform-origin',
-      #     "#{translatex + center[0]}% #{@translation[1] + center[1]}%"
-      #   )
     @viewer_background.style.opacity =
       Math.max(0, 1-(Math.abs(@translation[1]/100.0)))
     # @$viewer_background.css(
