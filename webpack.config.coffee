@@ -27,6 +27,13 @@ module.exports =
         })
       },
       {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: ["css-loader" ]
+          fallback: 'style-loader'
+        })
+      },
+      {
         test: /\.pug$/,
         use: ['pug-loader']
       }
