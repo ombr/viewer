@@ -48,8 +48,8 @@ class Viewer
       # console.log 'translation', translation
       @scale += @compute_scale(@touches, @last_touches)
       @translation = [
-        @translation[0] + translation[0],
-        @translation[1] + translation[1]
+        @translation[0] + translation[0]/@scale,
+        @translation[1] + translation[1]/@scale
       ]
       # console.log @translation
       # $('h1').html(@scale)
@@ -66,6 +66,8 @@ class Viewer
       translatex = -100.0*@index + @translation[0]
       # console.log translatex
       # console.log @scale, translatex, @translation
+      @viewer_content.style.transformOrigin =
+        "50% 50%"
       @viewer_content.style.transform =
         "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
       # console.log "#{translatex}% 50%"
