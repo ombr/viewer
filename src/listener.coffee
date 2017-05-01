@@ -4,7 +4,7 @@ class Listener
     @on_down = (e)=>
       @send('down', e)
     @on_up = (e)=>
-      @send('up', e)
+      @send('up', e) unless @event_in_scope(e)
     @on_move = (e)=>
       @send('move', e)
     @add_listener 'touchstart mousedown', @on_down
@@ -16,10 +16,17 @@ class Listener
     @remove_listener 'touchend mouseup mouseout touchcancel', @on_up
   add_listener: (events, callback)->
     for event in events.split(' ')
-      @element.addEventListener event, callback
+      @element.addEventListener event, callback, true
   remove_listener: (events, callback)->
     for event in events.split(' ')
       @element.addEventListener event, callback
+  event_in_scope: (event)->
+    e = event.relatedTarget
+    return false if event.relatedTarget == null
+    while e
+      return true if e == @element
+      e = e.parentElement
+    false
   send: (type, event)->
     event.preventDefault()
     event.stopPropagation()

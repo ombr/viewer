@@ -138,20 +138,22 @@ class Viewer
     @items[1].style.zIndex = 1
   up: (@touches)->
     return unless @drag
+    console.log 'UP !'
+    # debugger
     @drag = false
-    if Math.abs(@scale-1.0) < 0.01
-      if Math.abs(@translation[1]) > 30
-        return @destroy()
-      if Math.abs(@translation[0]) > 20
-        @drag = false
-        changes = {}
-        if @translation[0] < 0
-          @set_index(@index+1)
-        else
-          @set_index(@index-1)
+    if @scale < 0.5
+      return @destroy()
+    if @scale < 1
+      return @set_index(@index)
+    if Math.abs(@translation[1]) > 30
+      return @destroy()
+
+    if Math.abs(@translation[0]) > 20
+      if @translation[0] < 0
+        return @set_index(@index+1)
       else
-        @set_index(@index)
-    else
+        return @set_index(@index-1)
+    return @set_index(@index) if @scale <= 1.1
 
   move: (@touches)->
   compute_scale: (a,b)->
