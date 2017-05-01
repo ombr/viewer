@@ -48,8 +48,8 @@ class Viewer
       # console.log 'translation', translation
       @scale += @compute_scale(@touches, @last_touches)
       @translation = [
-        @translation[0] + translation[0]/@scale,
-        @translation[1] + translation[1]/@scale
+        @translation[0] + translation[0],
+        @translation[1] + translation[1]
       ]
       # console.log @translation
       # $('h1').html(@scale)
@@ -69,7 +69,7 @@ class Viewer
       @viewer_content.style.transformOrigin =
         "50% 50%"
       @viewer_content.style.transform =
-        "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
+        "translate(#{translatex}%, #{@translation[1]}%) scale(#{@scale})"
       # console.log "#{translatex}% 50%"
       # console.log 'center', center
       # @$viewer_content
@@ -138,22 +138,23 @@ class Viewer
     @items[1].style.zIndex = 1
   up: (@touches)->
     return unless @drag
-    console.log 'UP !'
+    console.log 'UP !', @translation
     # debugger
     @drag = false
-    if @scale < 0.5
+    if @scale < 0.5 # Destroy via scale
       return @destroy()
-    if @scale < 1
-      return @set_index(@index)
-    if Math.abs(@translation[1]) > 30
-      return @destroy()
+    if @scale <= 1.1 # Mode transition classiques
+      if Math.abs(@translation[1]) > 30
+        return @destroy()
 
-    if Math.abs(@translation[0]) > 20
-      if @translation[0] < 0
-        return @set_index(@index+1)
-      else
-        return @set_index(@index-1)
-    return @set_index(@index) if @scale <= 1.1
+      if Math.abs(@translation[0]) > 20
+        if @translation[0] < 0
+          return @set_index(@index+1)
+        else
+          return @set_index(@index-1)
+      return @set_index(@index)
+    if @scale > 1.1
+      console.log 'ICIC ?'
 
   move: (@touches)->
   compute_scale: (a,b)->
