@@ -41,4 +41,4 @@ class Listener
     touches
     @_touch_cache = touches
     @_touch_cache
-`export default Listener`
+export default Listener

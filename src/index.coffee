@@ -1,6 +1,6 @@
-`import css from './index.sass'`
-`import Viewer from './viewer.coffee'`
-`import $ from '../node_modules/jquery/dist/jquery'`
+import css from './index.sass'
+import Viewer from './viewer.coffee'
+import $ from '../node_modules/jquery/dist/jquery'
 
 $ ->
   i = 0

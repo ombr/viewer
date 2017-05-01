@@ -66,7 +66,8 @@ class Viewer
       translatex = -100.0*@index + @translation[0]
       # console.log translatex
       # console.log @scale, translatex, @translation
-      @viewer_content.style.transform = "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
+      @viewer_content.style.transform =
+        "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
       # console.log "#{translatex}% 50%"
       # console.log 'center', center
       # @$viewer_content
@@ -74,7 +75,8 @@ class Viewer
       #     'transform-origin',
       #     "#{translatex + center[0]}% #{@translation[1] + center[1]}%"
       #   )
-    @viewer_background.style.opacity = Math.max(0, 1-(Math.abs(@translation[1]/100.0)))
+    @viewer_background.style.opacity =
+      Math.max(0, 1-(Math.abs(@translation[1]/100.0)))
     # @$viewer_background.css(
     #   'opacity', Math.max(0, 1-(Math.abs(@translation[1]/100.0)))
     # )
@@ -167,4 +169,4 @@ class Viewer
     else
       [0, 0]
 
-`export default Viewer`
+export default Viewer
