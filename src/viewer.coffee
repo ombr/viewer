@@ -141,7 +141,7 @@ class Viewer
     console.log 'UP !', @translation
     # debugger
     @drag = false
-    if @scale < 0.5 # Destroy via scale
+    if @scale < 0.1 # Destroy via scale
       return @destroy()
     if @scale <= 1.1 # Mode transition classiques
       if Math.abs(@translation[1]) > 30
