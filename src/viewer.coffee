@@ -48,8 +48,8 @@ class Viewer
       # console.log 'translation', translation
       @scale += @compute_scale(@touches, @last_touches)
       @translation = [
-        @translation[0] + translation[0],
-        @translation[1] + translation[1]
+        @translation[0] + (translation[0]/@scale),
+        @translation[1] + (translation[1]/@scale)
       ]
       # console.log @translation
       # $('h1').html(@scale)
@@ -69,7 +69,7 @@ class Viewer
       @viewer_content.style.transformOrigin =
         "50% 50%"
       @viewer_content.style.transform =
-        "translate(#{translatex}%, #{@translation[1]}%) scale(#{@scale})"
+        "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
       # console.log "#{translatex}% 50%"
       # console.log 'center', center
       # @$viewer_content
@@ -141,7 +141,7 @@ class Viewer
     console.log 'UP !', @translation
     # debugger
     @drag = false
-    if @scale < 0.1 # Destroy via scale
+    if @scale < 0.2 # Destroy via scale
       return @destroy()
     if @scale <= 1.1 # Mode transition classiques
       if Math.abs(@translation[1]) > 30
