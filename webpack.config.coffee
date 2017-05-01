@@ -6,8 +6,8 @@ module.exports =
     "index": "./src/index.coffee",
     "test": "./src/test.coffee",
     "index.min": "./src/index.coffee"
-    "viewer": "./src/index.coffee"
-    "viewer.min": "./src/index.coffee"
+    "viewer": "./src/viewer.coffee"
+    "viewer.min": "./src/viewer.coffee"
   output:
     path: __dirname,
     filename: "dist/[name].js",
