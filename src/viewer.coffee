@@ -27,7 +27,7 @@ class Viewer
     @items[0].style.left = '-100%'
     @items[2].style.left = '100%'
     @loop_callback = =>
-      @loop()
+      @tick()
     requestAnimationFrame @loop_callback
 
   destroy: ->
@@ -41,7 +41,7 @@ class Viewer
       [a[0] + (a[0]-b[0])/2.0, a[1] + (a[1]-b[1])/2.0]
     else
       [touches[0][0], touches[0][1]]
-  loop: (e)->
+  tick: (e)->
     return if @destroyed
     if @drag
       translation = Geomtery.translation(@touches, @last_touches)
@@ -144,7 +144,6 @@ class Viewer
   up: (@touches)->
     return unless @drag
     console.log 'UP !', @translation
-    @loop()
     # debugger
     @drag = false
     if @scale < 0.2 # Destroy via scale

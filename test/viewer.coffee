@@ -15,6 +15,7 @@ export default ->
         )
         viewer.down([[50, 50]])
         viewer.move([[49, 50]])
+        viewer.tick()
         viewer.up([[49, 50]])
 
       it 'change the first element with index 3', (done)->
@@ -32,4 +33,5 @@ export default ->
         )
         viewer.down([[50, 50]])
         viewer.move([[20, 50]])
+        viewer.tick()
         viewer.up([[20, 50]])
