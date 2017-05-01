@@ -19,5 +19,4 @@ helper = {
       $viewer.remove()
     id
 }
-
-`export default helper`
+export default helper

@@ -4,7 +4,7 @@
   "description": "Index",
   "main": "dist/index.js",
   "scripts": {
-    "test": "coffeelint src && sass-lint src && pug-lint src && mocha test",
+    "test": "coffeelint src && sass-lint src && pug-lint src",
     "build": "./build.sh",
     "start": "webpack-dev-server",
     "heroku-postbuild": "./build.sh"
