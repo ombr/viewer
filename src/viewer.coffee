@@ -99,23 +99,27 @@ class Viewer
     @element.classList.add('viewer-annimate')
     diff = index - @index
     changes = {}
-    switch diff
-      when 1
-        changes[@index+2] = @items[0]
-      when -1
-        changes[@index-2] = @items[2]
-      else
-        changes[index-1] = @items[0]
-        changes[index] = @items[1]
-        changes[index+1] = @items[2]
-    # console.log 'changes !', changes
+    if diff != 0
+      switch diff
+        when 1
+          changes[@index+2] = @items[0]
+        when -1
+          changes[@index-2] = @items[2]
+        else
+          changes[index-1] = @items[0]
+          changes[index] = @items[1]
+          changes[index+1] = @items[2]
     for i, element of changes
       element.style.left = "#{i*100}%"
     @index = index
     @_rotate_items(diff)
     positions = []
     for i, item of @items
-      positions[item] = @items.indexOf(item) + 1
+      positions.push(
+        elem: item,
+        index: @index + @items.indexOf(item) - 1
+      )
+      # positions[item] = @items.indexOf(item) + 1
     if Object.keys(changes).length > 0 && @_config.callback?
       @_config.callback(changes, positions)
     @drag = false
