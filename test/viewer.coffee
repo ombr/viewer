@@ -21,14 +21,12 @@ export default ->
       it 'change the first element with index 3', (done)->
         viewer_dom = Helper.viewer_dom(after)
         first_item = $('.viewer-container', viewer_dom)[0]
-        console.log viewer_dom, first_item
         viewer = new Viewer(
           elem: viewer_dom
           callback: (changes, positions)->
             expect(changes.length).to.equal(1)
             expect(positions.length).to.equal(3)
             expect(changes[0].elem).to.equal(first_item)
-            console.log first_item, changes
             done()
         )
         viewer.down([[50, 50]])

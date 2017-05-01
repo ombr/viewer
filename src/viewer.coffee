@@ -143,7 +143,6 @@ class Viewer
     @items[1].style.zIndex = 1
   up: (@touches)->
     return unless @drag
-    console.log 'UP !', @translation
     # debugger
     @drag = false
     if @scale < 0.2 # Destroy via scale

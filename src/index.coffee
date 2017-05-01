@@ -7,10 +7,9 @@ $ ->
   window.v = new Viewer(
     elem: document.getElementsByClassName('viewer')[0]
     callback: (changes, positions)->
-      # console.log 'changes !:', changes
-      for index, element of changes
-        $('p', element).html(index)
-        $img = $('img', element)
+      for change in changes
+        $('p', change.elem).html(change.index)
+        $img = $('img', change.elem)
         # console.log $img.attr('src') + Math.round(Math.random()*9)
         $img.attr('src', $img.attr('src') + Math.round(Math.random()*9))
     destroyed: (e)->

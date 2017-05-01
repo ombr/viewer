@@ -3,7 +3,6 @@ export default {
     x = a[0] - b[0]
     y = a[1] - b[1]
     Math.sqrt(x*x + y*y)
-  translation: (a, b)->
   scale: (a,b)->
     if a.length > 1 and b.length > 1
       d1 = @distance(a[0], a[1])
