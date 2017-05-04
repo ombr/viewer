@@ -17,4 +17,7 @@ To be checked
 
 
 
+## Todo
+- on resize we need to recompute the size of the element ?
+- Rotation ?
 

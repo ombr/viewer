@@ -16,7 +16,7 @@ class Listener
     @remove_listener 'touchend mouseup mouseout touchcancel', @on_up
   add_listener: (events, callback)->
     for event in events.split(' ')
-      @element.addEventListener event, callback, true
+      @element.addEventListener event, callback
   remove_listener: (events, callback)->
     for event in events.split(' ')
       @element.addEventListener event, callback

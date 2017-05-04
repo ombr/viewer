@@ -52,6 +52,7 @@ class Viewer
     requestAnimationFrame @loop_callback
   update_position: ()->
     translatex = -100.0*@index + (@translation[0])
+    @scale = 0.2 if @scale < 0.2
     @viewer_content.style.transform =
       "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
   down: (@touches)->
@@ -61,13 +62,21 @@ class Viewer
   move: (@touches)->
   up: (@touches)->
     return unless @drag
-    # debugger
-    @viewer_background.style.opacity = 1
+    if @last_up? && Date.now() - @last_up < 500
+      if @scale > 1
+        @scale = 1.0
+        @translation = [0, 0]
+      else
+        @scale = 2.0
+        ref = 50.0 * (1 - (1.0 / @scale))
+        @translation = [ ref*(50.0-@touches[0][0])/50.0, ref*(50.0 - @touches[0][1])/50.0]
+      @update_position()
+    @last_up = Date.now()
     @drag = false
     if @scale < 0.1 # Destroy via scale
       return @destroy()
     if @scale <= 1.1 # Mode transition classiques
-      if Math.abs(@translation[1]) > 30
+      if Math.abs(@translation[1]) > 60
         return @destroy()
 
       if Math.abs(@translation[0]) > 20
@@ -88,6 +97,7 @@ class Viewer
         @translation[1] = -ref
       @element.classList.add('viewer-annimate')
       @update_position()
+    @viewer_background.style.opacity = 1
   set_index: (index)->
     @scale = 1
     @translation = [0, 0]
