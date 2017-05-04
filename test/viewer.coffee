@@ -5,8 +5,35 @@ import $ from 'jquery'
 
 export default ->
   describe 'Viewer', ->
-    describe 'Simple swipe', ->
+    describe 'set_item', ->
+      it 'update all elements when set_index is called with a number out of range', ->
+        viewer = new Viewer(
+          elem: Helper.viewer_dom(after)
+          callback: (changes, positions)->
+            expect(changes.length).to.equal(3)
+            expect(changes[0].index).to.equal(17)
+            expect(changes[1].index).to.equal(18)
+            expect(changes[2].index).to.equal(19)
+        )
+        viewer.set_index(18)
+      it 'update one item when ', ->
+        viewer = new Viewer(
+          elem: Helper.viewer_dom(after)
+          callback: (changes, positions)->
+            expect(changes.length).to.equal(1)
+            expect(changes[0].index).to.equal(2)
+        )
+        viewer.set_index(1)
+      it 'does not update when index do not change', ->
+        viewer = new Viewer(
+          elem: Helper.viewer_dom(after)
+          callback: (changes, positions)->
+            throw 'This should not happen !'
+        )
+        viewer.set_index(0)
+        viewer.set_index(0)
 
+    describe 'Simple swipe', ->
       it 'does not change for a small move', ->
         viewer = new Viewer(
           elem: Helper.viewer_dom(after)

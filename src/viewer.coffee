@@ -1,6 +1,6 @@
+import css from './viewer.sass'
 import Listener from './listener.coffee'
 import Geomtery from './geometry.coffee'
-import css from './viewer.sass'
 
 class Viewer
   constructor: (@_config)->
@@ -25,8 +25,8 @@ class Viewer
 
     for item in @items
       item.style.display = ''
-    @items[0].style.left = '-100%'
-    @items[2].style.left = '100%'
+    @items[0].style.transform = 'translate(-100%)'
+    @items[2].style.transform = 'translate(100%)'
     @loop_callback = =>
       @tick()
     requestAnimationFrame @loop_callback
@@ -45,33 +45,60 @@ class Viewer
         @translation[0] - (translation[0]/@scale),
         @translation[1] - (translation[1]/@scale)
       ]
-      translatex = -100.0*@index + @translation[0]
-      @viewer_content.style.transform =
-        "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
-    @viewer_background.style.opacity =
-      Math.max(0, 1-(Math.abs(@translation[1]/100.0)))
-    # @$viewer_background.css(
-    #   'opacity', Math.max(0, 1-(Math.abs(@translation[1]/100.0)))
-    # )
+      @update_position()
+      @viewer_background.style.opacity =
+        Math.max(0, 1-(Math.abs(@translation[1]/100.0)))
     @last_touches = @touches
     requestAnimationFrame @loop_callback
+  update_position: ()->
+    translatex = -100.0*@index + (@translation[0])
+    @viewer_content.style.transform =
+      "scale(#{@scale}) translate(#{translatex}%, #{@translation[1]}%)"
   down: (@touches)->
-    # console.log 'down !'
     @element.classList.remove('viewer-annimate')
-    # @last_start = Date.now()
     @last_touches = @touches
     @drag = true
-  $: (selector)->
-    if selector?
-      $(selector, @$viewer)
-    else
-      @$viewer
+  move: (@touches)->
+  up: (@touches)->
+    return unless @drag
+    # debugger
+    @viewer_background.style.opacity = 1
+    @drag = false
+    if @scale < 0.1 # Destroy via scale
+      return @destroy()
+    if @scale <= 1.1 # Mode transition classiques
+      if Math.abs(@translation[1]) > 30
+        return @destroy()
+
+      if Math.abs(@translation[0]) > 20
+        if @translation[0] < 0
+          return @set_index(@index+1)
+        else
+          return @set_index(@index-1)
+      return @set_index(@index)
+    if @scale > 1.1
+      ref = 50.0 * (1 - (1.0 / @scale))
+      if @translation[1] >= ref
+        @translation[1] = ref
+      if @translation[0] >= ref
+        @translation[0] = ref
+      if @translation[0] <= -ref
+        @translation[0] = -ref
+      if @translation[1] <= -ref
+        @translation[1] = -ref
+      @element.classList.add('viewer-annimate')
+      @update_position()
+
+
+  next: ->
+    @set_index(@index + 1)
+  previous: ->
+    @set_index(@index - 1)
   set_index: (index)->
     @scale = 1
     @translation = [0, 0]
     @element.classList.add('viewer-annimate')
     diff = index - @index
-    # console.log 'set index', index, diff
     changes = []
     if diff != 0
       switch diff
@@ -86,15 +113,15 @@ class Viewer
         else
           changes.push
             elem: @items[0]
-            index: @index - 1
+            index: index - 1
           changes.push
             elem: @items[1]
-            index: @index
+            index: index
           changes.push
             elem: @items[2]
-            index: @index + 1
-    for i, change of changes
-      change.elem.style.left = "#{change.index*100}%"
+            index: index + 1
+    for change in changes
+      change.elem.style.transform = "translate(#{change.index*100}%)"
     @index = index
     @_rotate_items(diff)
     positions = []
@@ -103,11 +130,11 @@ class Viewer
         elem: item,
         index: @index + @items.indexOf(item) - 1
       )
-      # positions[item] = @items.indexOf(item) + 1
     if Object.keys(changes).length > 0 && @_config.callback?
       @_config.callback(changes, positions)
     @drag = false
     @viewer_content.style.transform = "translate(#{-@index*100}%, 0)"
+    true
   _rotate_items: (index)->
     return if index == 0
     @items[1].style.zIndex = 0
@@ -118,25 +145,5 @@ class Viewer
       @items.unshift(@items.pop())
       @_rotate_items(index + 1)
     @items[1].style.zIndex = 1
-  up: (@touches)->
-    return unless @drag
-    # debugger
-    @drag = false
-    if @scale < 0.2 # Destroy via scale
-      return @destroy()
-    if @scale <= 1.1 # Mode transition classiques
-      if Math.abs(@translation[1]) > 30
-        return @destroy()
-
-      if Math.abs(@translation[0]) > 20
-        if @translation[0] < 0
-          return @set_index(@index+1)
-        else
-          return @set_index(@index-1)
-      return @set_index(@index)
-    if @scale > 1.1
-      console.log 'ICIC ?'
-
-  move: (@touches)->
 
 export default Viewer
