@@ -88,12 +88,6 @@ class Viewer
         @translation[1] = -ref
       @element.classList.add('viewer-annimate')
       @update_position()
-
-
-  next: ->
-    @set_index(@index + 1)
-  previous: ->
-    @set_index(@index - 1)
   set_index: (index)->
     @scale = 1
     @translation = [0, 0]
@@ -145,5 +139,9 @@ class Viewer
       @items.unshift(@items.pop())
       @_rotate_items(index + 1)
     @items[1].style.zIndex = 1
+  next: ->
+    @set_index(@index + 1)
+  previous: ->
+    @set_index(@index - 1)
 
 export default Viewer
