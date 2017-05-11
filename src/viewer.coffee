@@ -69,7 +69,10 @@ class Viewer
       else
         @scale = 2.0
         ref = 50.0 * (1 - (1.0 / @scale))
-        @translation = [ ref*(50.0-@touches[0][0])/50.0, ref*(50.0 - @touches[0][1])/50.0]
+        @translation = [
+          ref*(50.0-@touches[0][0])/50.0,
+          ref*(50.0 - @touches[0][1])/50.0
+        ]
       @update_position()
     @last_up = Date.now()
     @drag = false
