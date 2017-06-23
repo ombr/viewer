@@ -67,12 +67,14 @@ class Viewer
       "translate(#{translatex}%, #{@translation[1]}%) scale(#{@scale})"
   down: (@touches)->
     @element.classList.remove('viewer-annimate')
+    @element.classList.remove('viewer-annimate-origin')
     @last_touches = @touches
     @drag = true
     @last_down = Date.now()
   move: (@touches)->
   up: (@touches)->
     return unless @drag
+    @drag = false
     if @last_down && Date.now() - @last_down < 100
       if @scale > 1
         @scale = 1.0
@@ -80,8 +82,9 @@ class Viewer
       else
         @scale = 5.0
         @scale_center = [@touches[0][0], @touches[0][1]]
+      @element.classList.add('viewer-annimate')
       @update_position()
-    @drag = false
+      return
     if @scale < 0.1 # Destroy via scale
       return @destroy()
     if @scale > 1
@@ -94,6 +97,7 @@ class Viewer
       if @scale_center[1] < 0
         @scale_center[1] = 0
       @element.classList.add('viewer-annimate')
+      @element.classList.add('viewer-annimate-origin')
       @update_position()
     else
       # Mode transition classiques
