@@ -6,7 +6,7 @@
   "scripts": {
     "test": "coffeelint src && sass-lint src && pug-lint src",
     "build": "./build.sh",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --host 0.0.0.0",
     "heroku-postbuild": "./build.sh"
   },
   "repository": {
