@@ -61,7 +61,8 @@ class Viewer
   update_position: ()->
     translatex = -100.0*@index + (@translation[0])
     @scale = 0.2 if @scale < 0.2
-    @viewer_content.style.transformOrigin = "#{@scale_center[0]-100.0*@index}% #{@scale_center[1]}% 0"
+    @viewer_content.style.transformOrigin =
+      "#{@scale_center[0]-100.0*@index}% #{@scale_center[1]}% 0"
     @viewer_content.style.transform =
       "translate(#{translatex}%, #{@translation[1]}%) scale(#{@scale})"
   down: (@touches)->
