@@ -1,0 +1,1 @@
+.viewer{width:100%}.viewer-content{position:absolute;top:0;left:0;right:0;bottom:0}.viewer-annimate .viewer-content{transition:transform .3s ease-in-out}.viewer-annimate-origin .viewer-content{transition:transform-origin .3s ease-in-out}.viewer-background{background-color:#000;opacity:.9;position:absolute;top:0;left:0;right:0;bottom:0}
